@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue检测数据改变的原理</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <h2>学校名称：{{name}}</h2>
+        <h2>学校地址：{{address}}</h2>
+    </div>
+    <script type="text/javascript">
+        Vue.config.productionTip = false;  // 阻止 Vue 在启动时生成生产提示
+        // data中的每个对象属性都有对应的getter和setter方法，数组没有，
+        // 如果数组里面的元素是对象，那么里面的元素也有这两个方法
+        const vm = new Vue({
+            el: '#root',
+            data: {
+                name: '尚硅谷',
+                address: '北京',
+                student: {
+                    name: 'tom',
+                    age: {
+                        rAge: 40,
+                        sAge: 29
+                    },
+                    friends: [
+                        {name: 'jerry', age: 35}
+                    ]
+                }
+            }
+        })
+        console.log(vm);
+    </script>
+</body>
+</html>

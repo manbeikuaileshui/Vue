@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./lodash.js"></script>
+</head>
+<body>
+    请输入内容1：<input type="text">
+    请输入内容2：<input type="text">
+    <script>
+        // 防抖：前面的所有的触发都被取消，最后一次执行在规定的时间之后才会触发，也就是说如果连续快速的触发，只会执行一次
+        let inputs = document.querySelectorAll('input')
+        // 文本发生变化立即执行
+        inputs[0].oninput = function() {
+            console.log('发送AJAX请求1');
+        }
+        // 输入完成后间隔规定时间后发送请求 lodash插件
+        inputs[1].oninput = _.debounce(function() {
+            console.log('发送AJAX请求2');
+        }, 1000)
+    </script>
+</body>
+</html>

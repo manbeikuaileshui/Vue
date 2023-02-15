@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自定义指令_对象式</title>
+    <script src="../js/vue.js" type="text/javascript"></script>
+</head>
+<body>
+    <div id="root">
+        <!-- 需求：定义一个v-fbind指令，和v-bind功能类似，但可以让其所绑定的input元素默认获取焦点 -->
+        <input type="text" v-bind:value="n"><br><br>
+        <!-- <input type="text" v-fbind:value="n" autofocus><br><br> -->
+        <input type="text" v-fbind:value="n"><br><br>
+        <button @click="n++">点我n+1</button>
+    </div><br>
+
+    <div id="root1">
+        <input type="text" v-fbind:value="x"><br><br>
+        <button @click="x++">点我x+1</button>
+    </div>
+</body>
+<script type="text/javascript">
+    Vue.config.productionTip = false;  // 阻止 Vue 在启动时生成生产提示
+    // 定义全局的自定义指令
+    Vue.directive('fbind', {
+        bind(element, binding) {
+            element.value = binding.value;
+        },
+        inserted(element, binding) {
+            element.focus();
+        },
+        update(element, binding) {
+            element.value = binding.value;   
+        }
+    })
+
+    new Vue({
+        el: '#root',
+        data: {
+            n: 1
+        },
+        directives: {
+            // 写成函数实现不了
+            // fbind(element, binding) {
+            //     element.value = binding.value;
+            //     element.focus(); 
+            // }
+
+            // 写成对象形式
+            // fbind: {
+                // // 指令与元素成功绑定时(一上来)调用
+                // bind(element, binding) {
+                //     element.value = binding.value;
+                //     console.log(this);  // 注意此处的this是window
+                // },
+                // // 指令所在元素被插入页面时调用
+                // inserted(element, binding) {
+                //     element.focus();
+                //     console.log(this);  // 注意此处的this是window
+                // },
+                // // 指令所在的模板被重新解析时调用
+                // update(element, binding) {
+                //     element.value = binding.value;   
+                //     console.log(this);  // 注意此处的this是window
+                // }
+            // }
+        }
+    })
+    new Vue({
+        el: '#root1',
+        data: {
+            x: 1
+        }
+    })
+</script>
+<!-- 总结：自定义指令：
+    1.定义语法：
+        (1).局部指令：
+            new Vue({                                new Vue({
+                ditrctives: { 指令名: 配置对象 }   或    directive{ 指令名：回调函数) }
+            })                                       })
+        (2).全局指令：
+            Vue.directive(指令名，配置对象) 或 Vue.directive(指令名，回调函数)
+    2.配置对象中常用的3个回调：
+        (1).bind：指令与元素成功绑定时调用
+        (2).inserted：指令所在元素被插入页面时调用
+        (3).update：指令所在模板结构被重新解析时调用
+    3.备注：
+        (1).指令定义是不加v-，但是用时要加v-
+        (2).指令名如果是多个单词，要使用kebab-case命名方式，不要用camelCase命名。 -->
+</html>

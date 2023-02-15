@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script>
+    let searchParams = {
+        // 一级分类的id
+        category1Id: '',
+        // 二级分类的id
+        category2Id: '',
+        // 三级分类的id
+        category3Id: '',
+        // 分类名字
+        categoryName: '',
+        // 关键字
+        keyword: '',
+        // 排序
+        order: '',
+        // 分页器用的：代表的是当前的第几页
+        pageNo: 1,
+        // 每一页展示数据的个数
+        pageSize: 10,
+        // 平台售卖属性操作带的参数
+        props: [],
+        // 品牌
+        trademark: ''
+    }
+    let query = { category1Id: '110', categoryName: '手机'}
+    let params = {keyword: '华为'}
+    Object.assign(searchParams,query,params)
+    console.log(searchParams);
+</script>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>分析生命周期</title>
+    <script src="../js/vue.js" type="text/javascript"></script>
+</head>
+<body>
+    <div id="root">
+        <!-- <h2>当前的n值是：{{n}}</h2>
+        <button v-on:click="add">点我n+1</button>
+        <button @click="bye">点我销毁vm</button> -->
+    </div>
+</body>
+<script type="text/javascript">
+    Vue.config.productionTip = false;  // 阻止 Vue 在启动时生成生产提示
+    const vm = new Vue({
+        // el: '#root',
+        template: `
+        <div>
+            <h2>当前的n值是：{{n}}</h2>
+            <button v-on:click="add">点我n+1</button>
+            <button @click="bye">点我销毁vm</button>
+        </div>`,
+        data: {
+            n: 1,
+        },
+        methods: {
+            add() {
+                this.n++;
+                console.log('add');
+            },
+            bye() {
+                console.log('bye');
+                this.$destroy()
+            }
+        },
+        beforeCreate() {
+            console.log('beforeCreate');
+            // console.log(this); // vm中还没有_data和methods中的方法
+            // debugger;
+        },
+        created() {
+            console.log('created');
+            // console.log(this); // vm中有_data和methods中的方法
+            // debugger;
+        },
+        beforeMount() {
+            console.log('beforeMount');
+            // debugger;  // 此时虚拟DOM已完成，页面中显示的是未解析的DOM
+        },
+        mounted() {
+            console.log('mounted');
+            // debugger;  // 页面中已显示真实DOM
+            console.log('mounted', this.$el, this.$el instanceof HTMLElement);
+        },
+        beforeUpdate() {
+            console.log('beforeUpdate');
+            // console.log(this.n);  // 此时n为2，但是页面中的数据是还未更新的
+            // debugger;
+        },
+        updated() {
+            console.log('updated');
+            // console.log(this.n);  // 此时n为2，页面中的数据是已更新的
+            // debugger;
+        },
+        beforeDestroy() {
+            console.log('beforeDestroy');
+            console.log(this.n);  // 此时还可以拿到数据
+            this.add();  // 调用了函数，但页面不会变化
+            
+        },
+        destroyed() {
+            console.log('destroyed');
+        }
+    })
+    vm.$mount('#root');
+</script>
+</html>

@@ -1,0 +1,31 @@
+<template>
+    <div class="app">
+        <h1>{{msg}}</h1>
+        <School/>
+        <Student/>
+    </div>
+</template>
+
+<script>
+    import School from './components/School.vue'
+    import Student from './components/Student.vue'
+    export default {
+        name: 'App',
+        components: { School, Student},
+        data() {
+            return {
+                msg: '你好啊！',
+            }
+        },
+        mounted() {
+            // console.log('App', this.$bus)
+        },
+    }
+</script>
+
+<style>
+    .app {
+        padding: 5px;
+        background-color: gray;
+    }
+</style>

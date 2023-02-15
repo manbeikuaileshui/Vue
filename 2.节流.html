@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./lodash.js"></script>
+</head>
+<body>
+    <div>
+        <h1>我是计数器<span>0</span></h1>
+        <button>点击我+1</button>
+    </div>
+    <div>
+        <h1>我是计数器<span>0</span></h1>
+        <button>点击我+1</button>
+    </div>
+    <script>
+        // 节流：在规定的间隔时间范围内不会重复触发回调，只有大于这个时间间隔才会触发回调，把频繁触发变为少量触发
+        // 获取节点
+        let btns = document.querySelectorAll('button')
+        let spans = document.querySelectorAll('span')
+        let count1 = 0
+        let count2 = 0
+        btns[0].onclick = function() {
+            count1++;
+            spans[0].innerHTML = count1
+        }
+        btns[1].onclick = _.throttle(function() {
+            count2++;
+            spans[1].innerHTML = count2
+        }, 1000)
+    </script>
+</body>
+</html>
